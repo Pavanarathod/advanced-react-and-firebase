@@ -1,8 +1,17 @@
+import { useEffect, useState } from "react";
+import { auth } from "./database/firebase";
+import RegisterPage from "./pages/RegisterPage";
+import HomePage from "./pages/HomePage";
+import { onAuthStateChanged } from "firebase/auth";
+import useAuthState from "./hooks/useAuthState";
+
 function App() {
-  console.log(process.env.REACT_APP_CLIENT_ID);
+  const { user, loading } = useAuthState();
+
   return (
     <div>
-      <h1>Welcome to firebase todo</h1>
+      {loading && <h1>Loading</h1>}
+      {user ? <HomePage /> : <RegisterPage />}
     </div>
   );
 }
