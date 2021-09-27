@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
 import { auth } from "./database/firebase";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
-import { onAuthStateChanged } from "firebase/auth";
-import useAuthState from "./hooks/useAuthState";
+// import useAuthState from "./hooks/useAuthState";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { registerUser } from "./actions/userActions/userActions";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function App() {
-  const { user, loading } = useAuthState();
+  // const dispatch = useDispatch();
+  // const userInfo = useSelector((state) => state.user);
+  const [user, loading, error] = useAuthState(auth);
+  console.log(user);
 
-  return (
-    <div>
-      {loading && <h1>Loading</h1>}
-      {user ? <HomePage /> : <RegisterPage />}
-    </div>
-  );
+  // const { user, error, loading } = userInfo;
+
+  // useEffect(() => {
+  //   dispatch(registerUser());
+  // }, [dispatch]);
+
+  return <div>{user ? <h1>home</h1> : <RegisterPage />}</div>;
 }
 
 export default App;

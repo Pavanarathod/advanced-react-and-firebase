@@ -18,6 +18,12 @@ const useAuthState = () => {
       setLoding(false);
       setUser(false);
     });
+
+    return () => {
+      setUser(false);
+      setUser(null);
+      setLoding(false);
+    };
   }, []);
 
   return { user, userData, loading };

@@ -1,7 +1,8 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { auth } from "../database/firebase";
+import { auth, provider } from "../database/firebase";
 import { updateProfile } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -21,15 +22,29 @@ const RegisterPage = () => {
     }
   };
 
+  const signInWithGoogle = async (e) => {
+    try {
+      signInWithPopup(auth, provider).then((newUser) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(newUser);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = newUser.user;
+      });
+    } catch (error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    }
+  };
+
   return (
     <div>
       <form onSubmit={registerUser}>
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
         <input
           type="email"
           placeholder="Email"
@@ -44,6 +59,8 @@ const RegisterPage = () => {
         />
         <button>Sign up</button>
       </form>
+      <h1>Sign ing google</h1>
+      <button onClick={signInWithGoogle}>sign in google</button>
     </div>
   );
 };
