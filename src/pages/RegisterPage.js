@@ -1,12 +1,13 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { useState } from "react";
 import { auth, provider } from "../database/firebase";
-import { updateProfile } from "firebase/auth";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const registerUser = async (e) => {

@@ -1,11 +1,11 @@
 import { auth } from "../database/firebase";
 // import useAuthState from "../hooks/useAuthState";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Create from "../components/Create";
+import Todo from "../components/Todo";
 
 const HomePage = () => {
-  const [user, loading, error] = useAuthState(auth);
-  console.log("homepage running");
-  console.log(user);
+  const [user] = useAuthState(auth);
 
   return (
     <div>
@@ -13,6 +13,8 @@ const HomePage = () => {
       <h1>Welcome : {user?.email}</h1>
       <h1>{user?.displayName}</h1>
       <button onClick={() => auth.signOut()}>Sign Out</button>
+      <Create />
+      <Todo />
     </div>
   );
 };
