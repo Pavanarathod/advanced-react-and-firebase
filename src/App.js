@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { auth } from "./database/firebase";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
+import UpdatePage from "./pages/UpdatePage";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -12,6 +13,7 @@ function App() {
       {user ? (
         <div>
           <Switch>
+            <Route path="/update/:id" component={UpdatePage} />
             <Route exact path="/" component={HomePage} />
           </Switch>
         </div>
