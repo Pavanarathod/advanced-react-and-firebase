@@ -1,22 +1,23 @@
-import useFireabseCollection from "../hooks/useFireabseCollection";
-import { database } from "../database/firebase";
-import { useSelector } from "react-redux";
+import useFirebaseSnapshot from "../hooks/useFirebaseSnapshot";
 import TodoList from "./TodoList";
 
 const Todo = () => {
-  const data = useSelector((state) => state.todoData);
-
-  const [todo, loading, error] = useFireabseCollection(database, "todos", data);
+  const [todo, loading, error] = useFirebaseSnapshot();
 
   return (
     <div>
       {loading && <h1>loading</h1>}
       {error && <h1>{error}</h1>}
 
-      {/* {todo.map(({ id, data: { todo } }) => (
-  <TodoList key={id} id={id} todo={todo} />
-))} 
-       */}
+      {todo.length === 0 ? (
+        <h1>Create new todo</h1>
+      ) : (
+        <>
+          {todo.map(({ id, data: { todo } }) => (
+            <TodoList key={id} id={id} todo={todo} />
+          ))}
+        </>
+      )}
     </div>
   );
 };

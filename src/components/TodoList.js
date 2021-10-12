@@ -24,13 +24,18 @@ const TodoList = ({ todo, id }) => {
         alignItems: "center",
       }}
     >
-      <h1
-        style={{
-          marginRight: "10px",
-        }}
-      >
-        {todo}
-      </h1>
+      {todo ? (
+        <h1
+          style={{
+            marginRight: "10px",
+          }}
+        >
+          {todo}
+        </h1>
+      ) : (
+        <h1>Create a new todo.</h1>
+      )}
+
       <button onClick={() => history.push(`/update/${id}`)}>update</button>
       <button onClick={deleted}>delete</button>
     </div>
