@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { auth } from "./database/firebase";
@@ -7,6 +8,7 @@ import UpdatePage from "./pages/UpdatePage";
 
 function App() {
   const [user] = useAuthState(auth);
+  const [userName, setuserName] = useState("pavan");
 
   return (
     <BrowserRouter>
